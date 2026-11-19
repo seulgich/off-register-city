@@ -22,6 +22,7 @@ ap.add_argument('scan')
 ap.add_argument('--sheet', type=int, required=True, help='1, 2 or 3, as printed in the sheet header')
 ap.add_argument('--seed', type=int, default=427)
 ap.add_argument('--debug', action='store_true')
+ap.add_argument('--dpi', type=int, help='working resolution of the cut sheet (default: the scan\'s own, up to 600)')
 a = ap.parse_args()
 TAG = '' if a.seed == 427 else f'-seed{a.seed}'
 SI = a.sheet - 1
@@ -63,7 +64,8 @@ for fx, fy in [(0, 0), (1, 0), (0, 1), (1, 1)]:
     found.append((mx + max(0, cx - r), my + max(0, cy - r)))
 page_pts = [(cx + MARK / 2, cy + MARK / 2) for cx, cy in L['corners']]
 d = np.hypot(found[1][0] - found[0][0], found[1][1] - found[0][1]) / (page_pts[1][0] - page_pts[0][0])
-S = min(1.0, round(d * 4) / 4 or .25)           # work at the scan's own resolution: 0.25 = 150 dpi, 0.5 = 300, 1 = 600
+S = min(1.0, round(d * 4) / 4 or .25)
+if a.dpi: S = min(S, a.dpi / 600)           # work at the scan's own resolution: 0.25 = 150 dpi, 0.5 = 300, 1 = 600
 print(f'scan at about {d * 600:.0f} dpi, working at {S * 600:.0f} dpi; corners', [tuple(round(v) for v in c) for c in found])
 
 # 3. straighten: output (page * S) -> scan
