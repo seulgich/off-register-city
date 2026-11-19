@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Off-Register City</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Overpass:wght@300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>Off-Register City</h1>
+  <p>168 signs from Lafayette, Classon and DeKalb, Brooklyn, sorted from the strictest tone to the most personal. Every letter is cut from one of my original photographs, at the spot where a text reader thought it saw that letter. The louder a sign speaks, the less you can read it. Rest the pointer on a sign to read what it says.</p>
+</header>
+<main id="street"></main>
+<footer>© Seulgi Choei, 2026</footer>
+<div class="controls" id="controls" role="group" aria-label="Letters" hidden>
+  <button type="button" id="shuffle">Shuffle</button>
+  <label for="th">Threshold</label>
+  <input type="range" id="th" min="0.15" max="0.85" step="0.01" value="0.5">
+  <output id="thv" for="th">0.50</output>
+</div>
+</div>
+<script src="app.js"></script>
+</body>
+</html>

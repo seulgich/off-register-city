@@ -1,0 +1,54 @@
+@font-face{font-family:"Overpass Local";src:url("fonts/Overpass[wght].ttf") format("truetype");font-weight:100 900;font-display:swap}
+/* Layout: one long street on white. Signs hang at staggered offsets; going down, the tone softens and the letters come from readings the machine was surer of. Pure black and white, thresholded like the Found-Letters-Tool output. */
+:root{
+  --bg:#ffffff;
+  --ink:#000000;
+  --muted:#5c5c5c;
+  --faint:#b8b8b8;
+  --accent:#000000;
+  --mono:"Overpass","Overpass Local","Helvetica Neue",Arial,sans-serif;   /* Overpass Light (300): from the Highway Gothic of US road signs */
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink)}
+body{font:300 13px/1.3 var(--mono)}
+.wrap{padding:28px}   /* the same margin on the top and both sides */
+header{display:grid;gap:10px;padding-bottom:36px}
+footer{font-size:11px;letter-spacing:.04em;color:var(--muted);padding-top:28px}
+header p{font-size:16px;text-align:justify;hyphens:auto}
+h1{margin:0;font-weight:300;font-size:16px;letter-spacing:.06em;text-transform:uppercase}
+header p{margin:0;color:var(--ink)}
+section{position:relative;padding-bottom:12vh}
+.tone{position:sticky;top:0;z-index:2;display:flex;gap:14px;align-items:baseline;padding:10px 0;background:linear-gradient(var(--bg) 70%,transparent);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.tone b{font-weight:300;color:var(--accent);font-variant-numeric:tabular-nums}
+.tone span:last-child{margin-left:auto;font-variant-numeric:tabular-nums;color:var(--faint)}
+.signs{display:grid;gap:var(--gap)}
+.sign{position:relative;cursor:default;display:grid;justify-items:start;gap:calc(var(--h) * .2);width:fit-content;max-width:calc(100% - var(--o) * 46%);margin-left:calc(var(--o) * 46%);padding:6px 0}
+.line{display:flex;flex-wrap:wrap;column-gap:calc(var(--h) * .35);row-gap:calc(var(--h) * .2);max-width:100%}
+.sign canvas{display:block;max-width:100%;height:auto;transition:filter .35s ease,opacity .35s ease}
+.sign:focus-visible{outline:1px dashed var(--ink);outline-offset:6px}
+.sign .read{position:absolute;left:0;right:0;top:6px;white-space:pre-wrap;font:300 16px/calc(var(--h) * var(--lp,1.2)) var(--mono);letter-spacing:.02em;color:var(--ink);opacity:0;pointer-events:none;transition:opacity .35s ease}
+.sign:hover canvas,.sign:focus-visible canvas,.sign.open canvas{filter:blur(3px);opacity:.22}
+.sign:hover .read,.sign:focus-visible .read,.sign.open .read{opacity:1}
+@media (prefers-reduced-motion:reduce){.sign canvas,.sign .read{transition:none}}
+/* every tone is set at the same size; only where the letters come from changes */
+[data-l="1"]{--h:28px;--op:1;--fx:none;--gap:72px;--lg:0px}
+[data-l="2"]{--h:28px;--op:1;--fx:none;--gap:72px;--lg:0px}
+[data-l="3"]{--h:28px;--op:1;--fx:none;--gap:72px;--lg:0px}
+[data-l="4"]{--h:28px;--op:1;--fx:none;--gap:72px;--lg:0px}
+[data-l="5"]{--h:28px;--op:1;--fx:none;--gap:72px;--lg:0px}
+[data-l="6"]{--h:28px;--op:1;--fx:none;--gap:72px;--lg:0px}
+.controls[hidden]{display:none}
+.controls{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:16px;z-index:5;display:flex;gap:12px;align-items:center;padding:8px 12px;background:var(--bg);border:1px solid var(--ink);font-size:11px;letter-spacing:.04em;text-transform:uppercase}
+.controls button{font:inherit;text-transform:inherit;letter-spacing:inherit;color:var(--bg);background:var(--ink);border:0;padding:6px 10px;cursor:pointer}
+.controls button:active{transform:translateY(1px)}
+.controls input[type=range]{width:120px;accent-color:var(--ink)}
+.controls input[type=range]:disabled{opacity:.35}
+.controls output{min-width:4ch;font-variant-numeric:tabular-nums}
+.controls .tog{display:flex;gap:5px;align-items:center;cursor:pointer}
+.controls input[type=checkbox]{accent-color:var(--ink);margin:0}
+.controls :focus-visible{outline:1px dashed var(--ink);outline-offset:3px}
+@media (max-width:520px){.controls{left:16px;right:16px;justify-content:space-between;gap:8px}.controls input[type=range]{width:80px}}
+@media (max-width:520px){
+  .sign{max-width:calc(100% - var(--o) * 22%);margin-left:calc(var(--o) * 22%)}
+}
