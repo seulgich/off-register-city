@@ -5,7 +5,8 @@
 (async function(){
 const [signs,letters,comp,riso,order]=await Promise.all([fetch('data/signs.json').then(r=>r.json()),fetch('letters/letters.json').then(r=>r.json()),fetch('data/composition.json').then(r=>r.ok?r.json():null).catch(()=>null),fetch('letters/riso.json').then(r=>r.ok?r.json():null).catch(()=>null),fetch('data/order.json').then(r=>r.ok?r.json():null).catch(()=>null)]);
 /* data/composition.json is the arrangement that was printed (tools/build_signs.py); the page opens on it, and Shuffle leaves it */
-const D={G:letters.G,S:signs.flatMap(t=>t.signs.map(g=>[t.level,g])),N:signs.map(t=>t.tone),C:signs.map(t=>t.signs.length)};
+/* found: how many signs of the tone were photographed, repeats included (the page shows each wording once) */
+const D={G:letters.G,S:signs.flatMap(t=>t.signs.map(g=>[t.level,g])),N:signs.map(t=>t.tone),C:signs.map(t=>t.signs.length),F:signs.map(t=>t.found||t.signs.length)};
 /* versions: the digital cut, then one version per riso print once the scans are in (tools/cut_scans.py).
    When prints exist, every letter is taken from one of the prints, chosen at random. */
 const ALL=letters.versions,PRINTS=ALL.filter(v=>v.name!=='digital'),V=PRINTS.length?PRINTS:ALL;
@@ -30,7 +31,7 @@ const ORDER=order&&order.length===D.S.length?order:D.S.map((_,i)=>i);
 let k=0,n=0;
 D.N.forEach((name,ti)=>{
   const lv=ti+1,sec=document.createElement('section');sec.dataset.l=lv;
-  sec.innerHTML=`<div class="tone"><b>${lv} / 6</b><span>${name}</span><span>${D.C[ti]} signs</span></div><div class="signs"></div>`;
+  sec.innerHTML=`<div class="tone"><b>${lv} / 6</b><span>${name}</span><span>${D.F[ti]} signs</span></div><div class="signs"></div>`;
   const box=sec.querySelector('.signs');
   for(let i=0;i<D.C[ti];i++,n++){
     k=ORDER[n];const [l,text]=D.S[k];

@@ -35,11 +35,14 @@ then visit http://127.0.0.1:5502. Add `?mix` to the address to open the page as 
 
 ## Tones
 
-| | Tone | Signs |
-| --- | --- | --- |
-| 1 | Prohibitions | 32 |
-| 2 | Punitive Warnings | 15 |
-| 3 | Administrative Regulations | 21 |
-| 4 | Informational / Neutral | 84 |
-| 5 | Softened Requests | 11 |
-| 6 | Emotional / Personal Tone | 5 |
+Each tone header counts every sign photographed, repeats included; the page shows each wording once.
+
+| | Tone | Signs photographed | Wordings shown |
+| --- | --- | --- | --- |
+| 1 | Prohibitions | 39 | 32 |
+| 2 | Punitive Warnings | 17 | 15 |
+| 3 | Administrative Regulations | 29 | 21 |
+| 4 | Informational / Neutral | 94 | 84 |
+| 5 | Softened Requests | 11 | 11 |
+| 6 | Emotional / Personal Tone | 6 | 5 |
+| | Total | 196 | 168 |
